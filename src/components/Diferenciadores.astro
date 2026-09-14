@@ -1,0 +1,41 @@
+---
+const ITEMS = [
+  {
+    icon: 'fa-award',
+    title: 'Confianza y Calidad',
+    text: 'Años de trayectoria abasteciendo a las principales constructoras e industrias de El Salvador con garantía de durabilidad.',
+  },
+  {
+    icon: 'fa-shield-cat',
+    title: 'Certificación Internacional',
+    html: 'Distribución oficial de productos <strong>Owens Corning</strong> respaldados por normas ASTM, UL y estándares globales de eco-eficiencia.',
+  },
+  {
+    icon: 'fa-user-gear',
+    title: 'Asesoría de Expertos',
+    text: 'Acompañamiento técnico especializado desde la selección del material hasta el cálculo de espesores y recomendaciones de instalación.',
+  },
+];
+---
+
+<section class="py-12 bg-white border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {ITEMS.map((item) => (
+        <div class="flex items-start gap-4 p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-300 transition group">
+          <div class="w-14 h-14 rounded-xl bg-brand-red/10 text-brand-red flex items-center justify-center text-2xl flex-shrink-0 group-hover:bg-brand-red group-hover:text-white transition">
+            <i class={`fa-solid ${item.icon}`}></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">{item.title}</h3>
+            {item.html ? (
+              <p class="text-sm text-slate-600 leading-relaxed" set:html={item.html} />
+            ) : (
+              <p class="text-sm text-slate-600 leading-relaxed">{item.text}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
