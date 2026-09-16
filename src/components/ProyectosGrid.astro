@@ -1,0 +1,126 @@
+---
+import { Image } from 'astro:assets';
+import residencial from '../assets/proyectos/residencial.jpg';
+import oficinas from '../assets/proyectos/oficinas.jpg';
+import equipos from '../assets/proyectos/equipos.webp';
+import naves from '../assets/proyectos/naves.jpg';
+import estudio from '../assets/proyectos/estudio.jpg';
+import hornos from '../assets/proyectos/hornos.jpg';
+import homeOffice from '../assets/proyectos/home-office.jpg';
+import agropecuario from '../assets/proyectos/agropecuario.jpg';
+import { waLink } from '../lib/site-config';
+
+const PROYECTOS = [
+  {
+    img: residencial,
+    badge: 'Residencial',
+    titulo: 'Remodelación de Casa',
+    desc: 'Reduce el calor sofocante en techos de lámina o losa y ahorra hasta un 40% en tu recibo de energía del aire acondicionado.',
+    cta: 'Aplicación Residencial',
+    waText: 'Hola, necesito aislamiento para remodelacion residencial',
+  },
+  {
+    img: oficinas,
+    badge: 'Comercial',
+    titulo: 'Oficinas y Comercio',
+    desc: 'Control de eco en salas de juntas y privacidad acústica entre cubículos mediante colchonetas de fibra de vidrio y paneles.',
+    cta: 'Aplicación Comercial',
+    waText: 'Hola, necesito aislamiento para oficinas',
+  },
+  {
+    img: equipos,
+    badge: 'Industrial',
+    titulo: 'Equipos e Instalaciones',
+    desc: 'Revestimiento térmico para ductos HVAC, tuberías de proceso, tanques y chillers con aislamientos premoldeados.',
+    cta: 'Aplicación Industrial',
+    waText: 'Hola, necesito aislamiento para equipos industriales',
+  },
+  {
+    img: naves,
+    badge: 'Industrial',
+    titulo: 'Naves e Industria',
+    desc: 'Soluciones en rollo con foil de aluminio reforzado para prevenir la condensación y radiación térmica en galpones masivos.',
+    cta: 'Aplicación Industrial',
+    waText: 'Hola, necesito aislamiento para nave industrial',
+  },
+  {
+    img: estudio,
+    badge: 'Acústico',
+    titulo: 'Estudios & Auditorios',
+    desc: 'Paneles de alta densidad Owens Corning para barrera de sonido y absorción de reverberación en salas musicales y cines.',
+    cta: 'Aplicación Acústica',
+    waText: 'Hola, necesito acondicionamiento acustico',
+  },
+  {
+    img: hornos,
+    badge: 'Térmico Extremo',
+    titulo: 'Hornos y Cuartos Fríos',
+    desc: 'Lana mineral Thermafiber y placas XPS para contención de calor extremo en panaderías o conservación en congelación.',
+    cta: 'Aplicación Industrial',
+    waText: 'Hola, necesito aislamiento para hornos/cuartos frios',
+  },
+  {
+    img: homeOffice,
+    badge: 'Acústico',
+    titulo: 'Home Office & Dormitorios',
+    desc: 'Aísla el ruido exterior del tráfico y vecinos para trabajar o descansar en paz dentro de tu residencia.',
+    cta: 'Aplicación Residencial',
+    waText: 'Hola, necesito insonorizar un espacio residencial',
+  },
+  {
+    img: agropecuario,
+    badge: 'Especializado',
+    titulo: 'Agropecuario & Sanitario',
+    desc: 'Control térmico en galpones avícolas, porcinos y clínicas que demandan lavabilidad, higiene y prevención de hongos.',
+    cta: 'Aplicación Especializada',
+    waText: 'Hola, necesito aislamiento para sector agropecuario',
+  },
+];
+---
+
+<section id="proyectos" class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="text-brand-red font-bold text-xs uppercase tracking-widest block mb-2">Soluciones Medidas por Sector</span>
+      <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">¿Cuál es tu proyecto?</h2>
+      <p class="text-slate-600 mt-3 text-base">
+        Selecciona tu tipo de obra para descubrir el sistema de aislamiento térmico o acústico recomendado.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {PROYECTOS.map((p) => (
+        <div class="group bg-slate-50 rounded-xl border border-slate-200 overflow-hidden hover:border-brand-red hover:shadow-lg transition flex flex-col">
+          <div class="relative overflow-hidden h-44">
+            <Image
+              src={p.img}
+              alt={p.titulo}
+              width={500}
+              height={300}
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            />
+            <span class="absolute top-3 left-3 bg-brand-dark/80 text-white text-[11px] font-bold px-2.5 py-1 rounded backdrop-blur">
+              {p.badge}
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand-red transition mb-2">
+                {p.titulo}
+              </h3>
+              <p class="text-xs text-slate-600 leading-relaxed mb-4">{p.desc}</p>
+            </div>
+            
+            <a  href={waLink(p.waText)}
+              class="w-full py-2 px-3 rounded bg-white hover:bg-brand-red hover:text-white border border-slate-300 text-slate-700 text-xs font-semibold text-center transition block"
+            >
+              {p.cta}
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

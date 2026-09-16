@@ -1,0 +1,154 @@
+---
+import { CONTACT, LOCATIONS } from '../lib/site-config';
+
+const RAZONES = [
+  {
+    titulo: 'Distribuidor Oficial Owens Corning',
+    desc: 'Garantía directa de fábrica y stock permanente de los aislamientos más utilizados a nivel mundial.',
+  },
+  {
+    titulo: 'Cálculo e Ingeniería de Proyecto',
+    desc: 'Evaluamos tus planos o visita en sitio para determinar el valor R de resistencia térmica adecuado para la zona climática.',
+  },
+  {
+    titulo: 'Cobertura Regional en Centroamérica',
+    desc: 'Logística de despacho ágil para proyectos en todo El Salvador, Guatemala, Honduras y resto de la región.',
+  },
+];
+---
+
+<section id="nosotros" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-14">
+
+    <div class="max-w-3xl space-y-6">
+      <span class="text-brand-red font-bold text-xs uppercase tracking-widest block">Respaldo e Historia</span>
+      <h2 class="text-3xl font-extrabold sm:text-4xl">¿Por qué elegir a PROMAICA?</h2>
+
+      <p class="text-slate-300 text-sm leading-relaxed">
+        En <strong>PROMAICA</strong> nos hemos consolidado como el aliado estratégico predilecto para ingenieros, arquitectos, instaladores y dueños de hogar en El Salvador. No solo vendemos aislamientos; entregamos soluciones calculadas que garantizan la máxima eficiencia energética, confort térmico y seguridad pasiva contra incendios.
+      </p>
+
+      <ul class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+        {RAZONES.map((r) => (
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-full bg-brand-red/20 text-brand-red flex items-center justify-center text-sm mt-0.5 flex-shrink-0">
+              <i class="fa-solid fa-check"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-white text-base">{r.titulo}</h4>
+              <p class="text-xs text-slate-400">{r.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="flex items-center gap-6 border-t border-slate-800 pt-4">
+        <div>
+          <span class="text-3xl font-extrabold text-brand-red">100%</span>
+          <span class="block text-xs text-slate-400 uppercase">Material Certificado</span>
+        </div>
+        <div class="border-l border-slate-800 pl-6">
+          <span class="text-3xl font-extrabold text-white">+1000</span>
+          <span class="block text-xs text-slate-400 uppercase">Proyectos Suministrados</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {LOCATIONS.map((loc, i) => (
+        <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 shadow-xl space-y-4">
+          <div class="flex justify-between items-center pb-3 border-b border-slate-700">
+            <div>
+              <h3 class="text-lg font-bold text-white">Sede {loc.name}</h3>
+              <p class="text-xs text-slate-400">{loc.address}</p>
+            </div>
+            <span
+              data-status-badge
+              data-schedule={JSON.stringify(loc.schedule)}
+              class="px-3 py-1 bg-slate-700 text-slate-300 border border-slate-600 rounded-full text-xs font-semibold flex items-center gap-1.5 flex-shrink-0"
+            >
+              <span data-status-dot class="w-2 h-2 rounded-full bg-slate-500"></span>
+              <span data-status-text>—</span>
+            </span>
+          </div>
+
+          <div class="relative rounded-xl overflow-hidden border border-slate-600 bg-slate-900">
+            <iframe
+              src={loc.mapEmbedUrl}
+              width="100%"
+              height="240"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title={`Mapa de ubicación PROMAICA ${loc.name}`}
+            ></iframe>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300 pt-1">
+            {loc.hours.map((h) => (
+              <div class="flex items-start gap-2">
+                <i class="fa-solid fa-clock text-brand-red mt-0.5"></i>
+                <span>{h}</span>
+              </div>
+            ))}
+          </div>
+
+          
+          <a  href={loc.mapsUrl}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 text-xs font-bold text-brand-red hover:underline"
+          >
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Abrir en Google Maps</span>
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+      <i class="fa-solid fa-headset text-brand-red"></i>
+      <span>Atención al cliente (ambas sedes): {CONTACT.phone}</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const DAY_KEYS = ['dom', 'lun', 'mar', 'mie', 'jue', 'vie', 'sab'] as const;
+
+  function nowInElSalvador(): Date {
+    const svString = new Date().toLocaleString('en-US', { timeZone: 'America/El_Salvador' });
+    return new Date(svString);
+  }
+
+  function updateBadges() {
+    const sv = nowInElSalvador();
+    const dayKey = DAY_KEYS[sv.getDay()];
+    const hourDecimal = sv.getHours() + sv.getMinutes() / 60;
+
+    document.querySelectorAll<HTMLElement>('[data-status-badge]').forEach((badge) => {
+      const schedule = JSON.parse(badge.dataset.schedule || '{}');
+      const today = schedule[dayKey];
+      const isOpen = !!today && hourDecimal >= today.open && hourDecimal < today.close;
+
+      const dot = badge.querySelector<HTMLElement>('[data-status-dot]');
+      const text = badge.querySelector<HTMLElement>('[data-status-text]');
+      if (!dot || !text) return;
+
+      if (isOpen) {
+        badge.className = 'px-3 py-1 bg-green-900/50 text-green-400 border border-green-700/50 rounded-full text-xs font-semibold flex items-center gap-1.5 flex-shrink-0';
+        dot.className = 'w-2 h-2 rounded-full bg-green-400 animate-ping';
+        text.textContent = 'Abierto';
+      } else {
+        badge.className = 'px-3 py-1 bg-red-900/50 text-red-400 border border-red-700/50 rounded-full text-xs font-semibold flex items-center gap-1.5 flex-shrink-0';
+        dot.className = 'w-2 h-2 rounded-full bg-red-400';
+        text.textContent = 'Cerrado';
+      }
+    });
+  }
+
+  updateBadges();
+  // Revisa cada minuto por si la página queda abierta durante un cambio de horario
+  setInterval(updateBadges, 60_000);
+</script>

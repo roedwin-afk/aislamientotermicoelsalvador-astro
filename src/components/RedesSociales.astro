@@ -1,0 +1,32 @@
+---
+import { SOCIAL_LINKS, waLink } from '../lib/site-config';
+
+const REDES = [
+  { href: waLink('Hola, deseo solicitar una cotización de aislamiento térmico.'), icon: 'fa-whatsapp', label: 'WhatsApp', hoverClass: 'hover:border-green-500 hover:text-green-600' },
+  { href: SOCIAL_LINKS.facebook, icon: 'fa-facebook', label: 'Facebook', hoverClass: 'hover:border-blue-600 hover:text-blue-600' },
+  { href: SOCIAL_LINKS.instagram, icon: 'fa-instagram', label: 'Instagram', hoverClass: 'hover:border-pink-500 hover:text-pink-600' },
+  { href: SOCIAL_LINKS.youtube, icon: 'fa-youtube', label: 'YouTube', hoverClass: 'hover:border-red-600 hover:text-red-600' },
+  { href: SOCIAL_LINKS.linkedin, icon: 'fa-linkedin', label: 'LinkedIn', hoverClass: 'hover:border-blue-700 hover:text-blue-700' },
+];
+---
+
+<section class="py-12 bg-slate-100 border-y border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-2">Comunidad & Novedades</span>
+    <h3 class="text-xl font-bold text-slate-900 mb-6">Síguenos en nuestras Redes Sociales</h3>
+
+    <div class="flex flex-wrap justify-center items-center gap-4">
+      {REDES.map((r) => (
+        
+        <a  href={r.href}
+          target="_blank"
+          rel="noopener"
+          class={`flex items-center gap-3 px-5 py-3 rounded-xl bg-white border border-slate-200 shadow-sm transition text-slate-700 font-medium text-sm ${r.hoverClass}`}
+        >
+          <i class={`fa-brands ${r.icon} text-2xl`}></i>
+          <span>{r.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
