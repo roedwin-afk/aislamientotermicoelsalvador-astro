@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import fibraVidrio from '../assets/materiales/fibra-vidrio.jpg';
+import xpsFoamular from '../assets/materiales/xps-foamular.png';
+import lanaMineral from '../assets/materiales/lana-mineral.jpg';
+
+const MATERIALES = [
+  {
+    img: fibraVidrio,
+    alt: 'Instalación de aislamiento de Fibra de Vidrio',
+    badge: 'Térmico & Acústico',
+    badgeClass: 'bg-red-100 text-brand-red',
+    tag: 'Rollos y Frespan',
+    nombre: 'Fibra de Vidrio ROSA®',
+    desc: 'Ideal para cielos falsos, paredes divisorias y cubiertas. Excelente absorción acústica y reducción de transferencia de calor residencial y comercial.',
+    waText: 'Hola, busco información sobre Fibra de Vidrio',
+  },
+  {
+    img: xpsFoamular,
+    alt: 'Placas rígidas de Poliestireno Extruido FOAMULAR',
+    badge: 'Alta Resistencia',
+    badgeClass: 'bg-blue-100 text-blue-700',
+    tag: 'Placas Rígidas FOAMULAR®',
+    nombre: 'Poliestireno Extruido (XPS)',
+    desc: 'Placas de alta densidad para losas de concreto, muros perimetrales, cuartos fríos y pisos. Impermeable al agua y de altísima resistencia compresiva.',
+    waText: 'Hola, busco información sobre XPS Foamular',
+  },
+  {
+    img: lanaMineral,
+    alt: 'Instalación de Lana Mineral industrial',
+    badge: 'Alta Temperatura & Fuego',
+    badgeClass: 'bg-amber-100 text-amber-800',
+    tag: 'Thermafiber®',
+    nombre: 'Lana Mineral de Roca',
+    desc: 'Diseñada para soportar temperaturas extremas en calderas, hornos industriales, tuberías de vapor y barreras cortafuego en fachadas comerciales.',
+    waText: 'Hola, busco información sobre Lana Mineral',
+  },
+];
+---
+
+<section id="productos" class="py-16 bg-slate-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-brand-red font-bold text-xs uppercase tracking-widest block mb-2">Materiales Certificados</span>
+      <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">Nuestros Materiales Principales</h2>
+      <p class="text-slate-600 mt-3 text-base">
+        Suministramos la línea completa de materiales de Owens Corning para aislamiento térmico, acústico y protección contra fuego.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {MATERIALES.map((m) => (
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border border-slate-200 flex flex-col">
+          <Image
+            src={m.img}
+            alt={m.alt}
+            width={600}
+            height={350}
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class={`px-2.5 py-1 rounded ${m.badgeClass} text-xs font-bold`}>{m.badge}</span>
+                <span class="text-xs text-slate-400">{m.tag}</span>
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 mb-2">{m.nombre}</h3>
+              <p class="text-slate-600 text-sm mb-4">{m.desc}</p>
+            </div>
+            
+            <a  href={`https://wa.me/50325150030?text=${encodeURIComponent(m.waText)}`}
+              class="inline-flex items-center text-brand-red font-semibold hover:underline text-sm gap-1"
+            >
+              <span>Solicitar ficha técnica</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
