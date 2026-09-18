@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AsesoriaForm from '../components/AsesoriaForm.astro';
+import SedesMapas from '../components/SedesMapas.astro';
+import { CONTACT, waLink } from '../lib/site-config';
+---
+
+<Layout title="Contáctanos | PROMAICA" description="Solicitá asesoría técnica o visitá una de nuestras sedes en San Salvador y San Miguel, El Salvador.">
+  <section class="relative hero-gradient text-white py-16 lg:py-20 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e31b23_1px,transparent_1px)] bg-size-[24px_24px]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <span class="text-brand-red font-bold text-xs uppercase tracking-widest block mb-2">Estamos para ayudarte</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mb-4">Contáctanos</h1>
+      <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto mb-8">
+        Escribinos, llamanos o visitá una de nuestras sedes. Un asesor técnico te va a responder a la brevedad.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+        
+        <a  href={waLink('Hola, deseo solicitar una cotización de aislamiento térmico.')}
+          target="_blank"
+          rel="noopener"
+          class="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold text-sm transition shadow-lg"
+        >
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          <span>WhatsApp</span>
+        </a>
+        
+        <a  href={CONTACT.phoneHref}
+          class="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-semibold text-sm transition"
+        >
+          <i class="fa-solid fa-phone"></i>
+          <span>{CONTACT.phone}</span>
+        </a>
+        
+        <a  href={`mailto:${CONTACT.email}`}
+          class="flex-1 flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-semibold text-sm transition"
+        >
+          <i class="fa-solid fa-envelope"></i>
+          <span>{CONTACT.email}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-slate-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <AsesoriaForm variant="plain" />
+    </div>
+  </section>
+
+  <section class="py-16 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-white mb-8">Nuestras sedes</h2>
+      <SedesMapas />
+    </div>
+  </section>
+</Layout>

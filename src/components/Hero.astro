@@ -1,7 +1,5 @@
 ---
-import { waLink } from '../lib/site-config';
-
-const whatsappCtaHref = waLink('Hola, deseo solicitar una cotización de aislamiento térmico.');
+import AsesoriaForm from './AsesoriaForm.astro';
 ---
 
 <section id="inicio" class="relative hero-gradient text-white overflow-hidden py-16 lg:py-24">
@@ -10,7 +8,6 @@ const whatsappCtaHref = waLink('Hola, deseo solicitar una cotización de aislami
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-      <!-- Columna Izquierda: Mensaje de Valor -->
       <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-red/20 border border-brand-red/40 text-brand-red text-xs font-semibold uppercase tracking-wider">
           <i class="fa-solid fa-shield-halved"></i>
@@ -50,66 +47,10 @@ const whatsappCtaHref = waLink('Hola, deseo solicitar una cotización de aislami
         </div>
       </div>
 
-      <!-- Columna Derecha: Formulario de Asesoría -->
       <div class="lg:col-span-5">
-        <div class="glass-card rounded-2xl p-6 sm:p-8 text-slate-900 shadow-2xl relative border border-white/20">
-          <div class="mb-6 border-b border-slate-200 pb-4">
-            <span class="text-xs font-bold text-brand-red uppercase tracking-wider block">Atención Inmediata B2B / B2C</span>
-            <h2 class="text-2xl font-bold text-slate-900">Solicitar Asesoría Técnica</h2>
-            <p class="text-xs text-slate-600 mt-1">Recibe cotización personalizada y recomendación de materiales para tu obra.</p>
-          </div>
-
-          <form id="hero-lead-form" class="space-y-4">
-            <div>
-              <label for="empresa" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Empresa / Proyecto (Opcional)</label>
-              <input type="text" id="empresa" name="empresa" placeholder="Ej: Constructora El Salvador S.A." class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-red focus:border-brand-red text-sm outline-none bg-white" />
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="nombre" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nombre completo *</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Ing. Carlos Mendoza" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-red focus:border-brand-red text-sm outline-none bg-white" />
-              </div>
-              <div>
-                <label for="telefono" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Teléfono / WhatsApp *</label>
-                <input type="tel" id="telefono" name="telefono" required placeholder="+503 7000-0000" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-red focus:border-brand-red text-sm outline-none bg-white" />
-              </div>
-            </div>
-
-            <div>
-              <label for="correo" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Correo electrónico *</label>
-              <input type="email" id="correo" name="correo" required placeholder="carlos@empresa.com" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-red focus:border-brand-red text-sm outline-none bg-white" />
-            </div>
-
-            <div>
-              <label for="comentario" class="block text-xs font-semibold text-slate-700 uppercase mb-1">¿Qué necesitas aislar? *</label>
-              <textarea id="comentario" name="comentario" rows="3" required placeholder="Descríbenos tu requerimiento (ej: aislamiento para techo de nave industrial de 500m², control de ruido en oficinas, etc.)" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-brand-red focus:border-brand-red text-sm outline-none bg-white resize-none"></textarea>
-            </div>
-
-            <button type="submit" class="w-full py-3.5 px-6 bg-brand-red hover:bg-brand-darkred text-white font-bold rounded-lg transition shadow-md flex items-center justify-center gap-2 uppercase tracking-wider text-sm">
-              <i class="fa-solid fa-paper-plane"></i>
-              <span>Enviar solicitud de cotización</span>
-            </button>
-
-            <p class="text-[11px] text-slate-500 text-center mt-2">
-              Atendemos proyectos en San Salvador, San Miguel y toda Centroamérica.
-            </p>
-          </form>
-        </div>
+        <AsesoriaForm />
       </div>
 
     </div>
   </div>
 </section>
-
-<script>
-  // Placeholder de envío — se reemplaza en el paso 8 por la lógica real
-  // (correo / CRM / WhatsApp, según definas el destino).
-  const form = document.getElementById('hero-lead-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('¡Gracias por comunicarte con PROMAICA! Un asesor técnico se pondrá en contacto a la brevedad.');
-    form.reset();
-  });
-</script>
-</script>

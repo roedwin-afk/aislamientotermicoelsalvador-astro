@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import laristal from '../assets/clientes/laristal.png';
+import millennium from '../assets/clientes/millennium.png';
+import americanpark from '../assets/clientes/americanpark.png';
+
+const CLIENTES = [
+  { img: laristal, alt: "L'Aristal Plaza" },
+  { img: millennium, alt: 'Millennium Plaza' },
+  { img: americanpark, alt: 'American Park Free Zone' },
+];
+---
+
+<section class="py-14 bg-slate-100 border-y border-slate-200">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h3 class="text-lg font-bold text-slate-900 mb-8">Nuestros Clientes</h3>
+    <div class="flex flex-wrap justify-center items-center gap-10">
+      {CLIENTES.map((c) => (
+        <Image src={c.img} alt={c.alt} width={160} height={160} class="h-20 w-auto object-contain opacity-80 hover:opacity-100 transition" />
+      ))}
+    </div>
+  </div>
+</section>
