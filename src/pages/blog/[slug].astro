@@ -1,0 +1,61 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+import { getPostBySlug, getFeaturedImage, getAuthorName, formatWpDate, stripHtml, getComments } from '../../lib/wp/client';
+import CommentsSection from '../../components/CommentsSection.tsx';
+import type { WPComment } from '../../lib/wp/types';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/blog');
+}
+
+const post = await getPostBySlug(slug);
+
+if (!post) {
+  return new Response(null, { status: 404, statusText: 'Not found' });
+}
+
+const featured = getFeaturedImage(post);
+const description = stripHtml(post.excerpt.rendered).slice(0, 160);
+
+let comments:WPComment[];
+try {
+  comments = await getComments(post.id);
+} catch {
+  comments = [];
+}
+---
+
+<Layout title={`${stripHtml(post.title.rendered)} | Blog PROMAICA`} description={description}>
+  <main class="py-16 bg-white min-h-screen">
+    <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/blog" class="text-sm text-brand-red font-semibold hover:underline inline-flex items-center gap-1 mb-6">
+        <i class="fa-solid fa-arrow-left text-xs"></i>
+        <span>Volver al blog</span>
+      </a>
+
+      <div class="flex items-center gap-3 text-xs text-slate-500 mb-4">
+        <span>{formatWpDate(post.date)}</span>
+        <span>·</span>
+        <span>{getAuthorName(post)}</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6" set:html={post.title.rendered} />
+
+      {featured && (
+        <img
+          src={featured.url}
+          alt={featured.alt}
+          class="w-full h-auto rounded-2xl mb-8 object-cover"
+        />
+      )}
+
+      <div class="prose prose-slate max-w-none prose-headings:font-heading prose-a:text-brand-red" set:html={post.content.rendered} />
+
+      <CommentsSection client:load postId={post.id} initialComments={comments} />
+    </article>
+  </main>
+</Layout>
