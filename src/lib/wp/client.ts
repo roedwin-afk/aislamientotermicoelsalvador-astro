@@ -18,6 +18,12 @@ export async function getPosts(page = 1, perPage = 9): Promise<PaginatedPosts> {
   const totalPages = Number(res.headers.get('X-WP-TotalPages') ?? '1');
   const totalPosts = Number(res.headers.get('X-WP-Total') ?? posts.length);
 
+  if (!res.ok) {
+    console.error('WP status:', res.status, 'server:', res.headers.get('server'));
+    console.error('WP body:', (await res.text()).slice(0, 500));
+    throw new Error(`Error al obtener posts de WordPress: ${res.status}`);
+  }
+
   return { posts, totalPages, totalPosts };
 }
 
