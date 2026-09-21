@@ -2,9 +2,13 @@ import type { WPPost, PaginatedPosts, WPComment } from './types';
 
 const API_BASE = import.meta.env.WP_API_URL;
 
+const WP_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (compatible; PromaicaAstroBot/1.0; +https://aislamientotermicoelsalvador-astro.onrender.com)',
+};
+
 export async function getPosts(page = 1, perPage = 9): Promise<PaginatedPosts> {
   const url = `${API_BASE}/posts?_embed&per_page=${perPage}&page=${page}`;
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: WP_HEADERS });
 
   if (!res.ok) {
     // WordPress devuelve 400 cuando pedís una página que no existe
@@ -26,9 +30,12 @@ export async function getPosts(page = 1, perPage = 9): Promise<PaginatedPosts> {
 
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
   const url = `${API_BASE}/posts?slug=${encodeURIComponent(slug)}&_embed`;
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: WP_HEADERS });
 
   if (!res.ok) {
+    const body = (await res.text()).slice(0, 500);
+    console.error('WP status:', res.status, 'server:', res.headers.get('server'), 'url:', url);
+    console.error('WP body:', body);
     throw new Error(`Error al obtener el post "${slug}" de WordPress: ${res.status}`);
   }
 
@@ -66,7 +73,7 @@ export function stripHtml(html: string): string {
 
 export async function getComments(postId: number): Promise<WPComment[]> {
   const url = `${API_BASE}/comments?post=${postId}&order=asc&per_page=50`;
-  const res = await fetch(url);
+  const res = await fetch(url, { headers: WP_HEADERS });
 
   if (!res.ok) {
     throw new Error(`Error al obtener comentarios del post ${postId}: ${res.status}`);
